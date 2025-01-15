@@ -17,7 +17,13 @@ public class Radio {
 
     //   сеттер для установки номера радиостанции
     public void setCurrentStationNumber(int newCurrentStationNumber) {
-        this.currentStationNumber = newCurrentStationNumber;
+        if (newCurrentStationNumber > 9) {
+            currentStationNumber = 9;
+        } else if (newCurrentStationNumber < 0) {
+            currentStationNumber = 0;
+        } else {
+            this.currentStationNumber = newCurrentStationNumber;
+        }
     }
 
     //    сеттер для установки уровня громкости
@@ -25,6 +31,7 @@ public class Radio {
         this.currentVolumeLevel = newCurrentVolumeLevel;
     }
 
+    //    увеличение значения номера радиостанции на единицу
     public void nextStation() {
         if (currentStationNumber == 9) {
             setCurrentStationNumber(0);
@@ -33,6 +40,7 @@ public class Radio {
         }
     }
 
+    //    уменьшение значения номера радиостанции на единицу
     public void prevStation() {
         if (currentStationNumber == 0) {
             setCurrentStationNumber(9);
@@ -41,6 +49,7 @@ public class Radio {
         }
     }
 
+    //    увеличение громкости на единицу
     public void increaseVolume() {
         if (currentVolumeLevel == 100) {
             setCurrentVolumeLevel(100);
@@ -49,6 +58,7 @@ public class Radio {
         }
     }
 
+    //    уменьшение громкости на единицу
     public void decreaseVolume() {
         if (currentVolumeLevel == 0) {
             setCurrentVolumeLevel(0);

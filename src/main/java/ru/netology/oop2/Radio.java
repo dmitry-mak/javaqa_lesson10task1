@@ -23,9 +23,9 @@ public class Radio {
     //   сеттер для установки номера радиостанции
     public void setCurrentStationNumber(int newCurrentStationNumber) {
         if (newCurrentStationNumber > MAX_STATION) {
-            currentStationNumber = 9;
+            currentStationNumber = MAX_STATION;
         } else if (newCurrentStationNumber < MIN_STATION) {
-            currentStationNumber = 0;
+            currentStationNumber = MIN_STATION;
         } else {
             this.currentStationNumber = newCurrentStationNumber;
         }
@@ -33,7 +33,13 @@ public class Radio {
 
     //    сеттер для установки уровня громкости
     public void setCurrentVolumeLevel(int newCurrentVolumeLevel) {
-        this.currentVolumeLevel = newCurrentVolumeLevel;
+        if (newCurrentVolumeLevel > MAX_VOLUME) {
+            currentVolumeLevel = MAX_VOLUME;
+        } else if (newCurrentVolumeLevel < MIN_VOLUME) {
+            currentVolumeLevel = MIN_VOLUME;
+        } else {
+            this.currentVolumeLevel = newCurrentVolumeLevel;
+        }
     }
 
     //    увеличение значения номера радиостанции на единицу
@@ -57,7 +63,7 @@ public class Radio {
     //    увеличение громкости на единицу
     public void increaseVolume() {
         if (currentVolumeLevel == MAX_VOLUME) {
-            setCurrentVolumeLevel(MAX_VOLUME);
+            return;
         } else {
             setCurrentVolumeLevel(getCurrentVolumeLevel() + 1);
         }
@@ -65,10 +71,7 @@ public class Radio {
 
     //    уменьшение громкости на единицу
     public void decreaseVolume() {
-        if (currentVolumeLevel == MIN_VOLUME) {
-            setCurrentVolumeLevel(MIN_VOLUME);
-        } else {
-            setCurrentVolumeLevel(getCurrentVolumeLevel() - 1);
-        }
+
+        setCurrentVolumeLevel(Math.max(currentVolumeLevel - 1, MIN_VOLUME));
     }
 }

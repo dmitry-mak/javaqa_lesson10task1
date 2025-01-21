@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 class RadioTest {
 
-    //    Должен устанавливать указанный номер станции
+    //    Должен устанавливать указанный номер станции для объекта с конструктором по умолчанию
     @Test
     void shouldSetCurrentStationNumber() {
 
@@ -13,6 +13,20 @@ class RadioTest {
         radio.setCurrentStationNumber(6);
 
         int expected = 6;
+        int actual = radio.getCurrentStationNumber();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    //    Для объекта с конструктором с параметром
+    //    Должен устанавливать указанный номер станции для объекта с конструктором c параметром
+    @Test
+    void shouldSetCurrentStationNumber_Constructor() {
+
+        Radio radio = new Radio(15);
+        radio.setCurrentStationNumber(12);
+
+        int expected = 12;
         int actual = radio.getCurrentStationNumber();
 
         Assertions.assertEquals(expected, actual);
@@ -55,7 +69,8 @@ class RadioTest {
         Assertions.assertEquals(expected2, actual2);
     }
 
-    //    верхние граничные значения для номера радиостанции (8;9;10)
+    //    Для объекта с конструктором по умолчанию
+    //    Верхние граничные значения для номера радиостанции (8;9;10).
     @Test
     public void setRadioStation_upperBoundaryValues() {
 
@@ -72,6 +87,31 @@ class RadioTest {
         Radio radio2 = new Radio();
         radio2.setCurrentStationNumber(10);
         int expected2 = 9;
+        int actual2 = radio2.getCurrentStationNumber();
+
+        Assertions.assertEquals(expected, actual);
+        Assertions.assertEquals(expected1, actual1);
+        Assertions.assertEquals(expected2, actual2);
+    }
+
+    //    Для объекта с конструктором с параметром
+    //    Верхние граничные значения для номера радиостанции - (13;14;15 - numberOfStations = 15)
+    @Test
+    public void setRadioStation_upperBoundaryValues_Constructor() {
+
+        Radio radio = new Radio(15);
+        radio.setCurrentStationNumber(13);
+        int expected = 13;
+        int actual = radio.getCurrentStationNumber();
+
+        Radio radio1 = new Radio(15);
+        radio1.setCurrentStationNumber(14);
+        int expected1 = 14;
+        int actual1 = radio1.getCurrentStationNumber();
+
+        Radio radio2 = new Radio(15);
+        radio2.setCurrentStationNumber(15);
+        int expected2 = 14;
         int actual2 = radio2.getCurrentStationNumber();
 
         Assertions.assertEquals(expected, actual);
@@ -142,11 +182,12 @@ class RadioTest {
         Assertions.assertEquals(expected, actual);
     }
 
-    // переход на следующую радиостанцию после максимальной. Должен передавать минимальное значение радиостанции
-    @Test
+    // Для объекта с конструктором по умолчанию.
+    // Переход на следующую радиостанцию после максимальной. Должен передавать минимальное значение радиостанции
+        @Test
     void nextStationAfterMaximum() {
-        Radio radio = new Radio();
-        radio.setCurrentStationNumber(9);
+        Radio radio = new Radio(9);
+        radio.setCurrentStationNumber(8);
 
         radio.nextStation();
 
@@ -160,11 +201,11 @@ class RadioTest {
     @Test
     void prevStation() {
         Radio radio = new Radio();
-        radio.setCurrentStationNumber(9);
+        radio.setCurrentStationNumber(6);
 
         radio.prevStation();
 
-        int expected = 8;
+        int expected = 5;
         int actual = radio.getCurrentStationNumber();
 
         Assertions.assertEquals(expected, actual);
@@ -226,7 +267,7 @@ class RadioTest {
         Assertions.assertEquals(expected, actual);
     }
 
-    //    уменьшение уровня громкости после минимального. Должен оставлять минимальное значение громкости
+    //    Уменьшение уровня громкости после минимального. Должен оставлять минимальное значение громкости
     @Test
     void decreaseVolumeAfterMinimum() {
         Radio radio = new Radio();
@@ -240,5 +281,29 @@ class RadioTest {
         Assertions.assertEquals(expected, actual);
     }
 
+// Для объекта с конструктором с параметром
+// Увеличение номера радиостанции когда выставлено максимальное значение, должен устанавливать минимальное значение
+    @Test
+    void increaseStationWithConstructor() {
+        Radio radio = new Radio(15);
+        radio.setCurrentStationNumber(18);
 
+        radio.nextStation();
+
+        int expected = 0;
+        int actual = radio.getCurrentStationNumber();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    void setStationWithConstructorOverMaximum() {
+        Radio radio = new Radio(20);
+        radio.setCurrentStationNumber(25);
+
+        int expected = 19;
+        int actual = radio.getCurrentStationNumber();
+
+        Assertions.assertEquals(expected, actual);
+    }
 }

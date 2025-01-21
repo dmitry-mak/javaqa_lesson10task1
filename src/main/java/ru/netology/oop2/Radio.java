@@ -3,12 +3,26 @@ package ru.netology.oop2;
 public class Radio {
 
     private static final int MIN_STATION = 0;
-    private static final int MAX_STATION = 9;
     private static final int MIN_VOLUME = 0;
     private static final int MAX_VOLUME = 100;
 
     private int currentStationNumber;
     private int currentVolumeLevel;
+    private int numberOfStations;
+
+    //    конструктор без параметров, устанавливает кол-во станций = 10
+    public Radio() {
+        this.numberOfStations = 10;
+        this.currentStationNumber = 0;
+        this.currentVolumeLevel = 0;
+    }
+
+    //    перегруженный конструктор, устанавливает заданное кол-во станций
+    public Radio(int numberOfStations) {
+        this.numberOfStations = numberOfStations;
+        this.currentStationNumber = 0;
+        this.currentVolumeLevel = 0;
+    }
 
     //    геттер для получения текущего номера радиостанции
     public int getCurrentStationNumber() {
@@ -22,8 +36,8 @@ public class Radio {
 
     //   сеттер для установки номера радиостанции
     public void setCurrentStationNumber(int newCurrentStationNumber) {
-        if (newCurrentStationNumber > MAX_STATION) {
-            currentStationNumber = MAX_STATION;
+        if (newCurrentStationNumber >= numberOfStations) {
+            currentStationNumber = numberOfStations - 1;
         } else if (newCurrentStationNumber < MIN_STATION) {
             currentStationNumber = MIN_STATION;
         } else {
@@ -44,7 +58,7 @@ public class Radio {
 
     //    увеличение значения номера радиостанции на единицу
     public void nextStation() {
-        if (currentStationNumber == MAX_STATION) {
+        if (currentStationNumber == numberOfStations - 1) {
             setCurrentStationNumber(MIN_STATION);
         } else {
             setCurrentStationNumber(getCurrentStationNumber() + 1);
@@ -54,7 +68,7 @@ public class Radio {
     //    уменьшение значения номера радиостанции на единицу
     public void prevStation() {
         if (currentStationNumber == MIN_STATION) {
-            setCurrentStationNumber(MAX_STATION);
+            setCurrentStationNumber(numberOfStations - 1);
         } else {
             setCurrentStationNumber(getCurrentStationNumber() - 1);
         }

@@ -24,9 +24,9 @@ class RadioTest {
     void shouldSetCurrentStationNumber_Constructor() {
 
         Radio radio = new Radio(15);
-        radio.setCurrentStationNumber(12);
+        radio.setCurrentStationNumber(14);
 
-        int expected = 12;
+        int expected = 14;
         int actual = radio.getCurrentStationNumber();
 
         Assertions.assertEquals(expected, actual);

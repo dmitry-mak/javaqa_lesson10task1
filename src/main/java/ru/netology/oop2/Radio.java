@@ -1,5 +1,14 @@
 package ru.netology.oop2;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.AllArgsConstructor;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Radio {
 
     private static final int MIN_STATION = 0;
@@ -8,33 +17,17 @@ public class Radio {
 
     private int currentStationNumber;
     private int currentVolumeLevel;
-    private int numberOfStations;
+    private int numberOfStations = 10;
 
-    //    конструктор без параметров, устанавливает кол-во станций = 10
-    public Radio() {
-        this.numberOfStations = 10;
-        this.currentStationNumber = 0;
-        this.currentVolumeLevel = 0;
-    }
 
-    //    перегруженный конструктор, устанавливает заданное кол-во станций
+    // Перегруженный конструктор, устанавливает заданное кол-во станций
     public Radio(int numberOfStations) {
         this.numberOfStations = numberOfStations;
-        this.currentStationNumber = 0;
-        this.currentVolumeLevel = 0;
+        this.currentStationNumber = MIN_STATION;
+        this.currentVolumeLevel = MIN_VOLUME;
     }
 
-    //    геттер для получения текущего номера радиостанции
-    public int getCurrentStationNumber() {
-        return currentStationNumber;
-    }
-
-    //    геттер для получения текущего уровня громкости
-    public int getCurrentVolumeLevel() {
-        return currentVolumeLevel;
-    }
-
-    //   сеттер для установки номера радиостанции
+    // Сеттер для установки номера радиостанции
     public void setCurrentStationNumber(int newCurrentStationNumber) {
         if (newCurrentStationNumber >= numberOfStations) {
             currentStationNumber = numberOfStations - 1;
@@ -45,7 +38,7 @@ public class Radio {
         }
     }
 
-    //    сеттер для установки уровня громкости
+    // Сеттер для установки уровня громкости
     public void setCurrentVolumeLevel(int newCurrentVolumeLevel) {
         if (newCurrentVolumeLevel > MAX_VOLUME) {
             currentVolumeLevel = MAX_VOLUME;
@@ -56,7 +49,7 @@ public class Radio {
         }
     }
 
-    //    увеличение значения номера радиостанции на единицу
+    // Увеличение значения номера радиостанции на единицу
     public void nextStation() {
         if (currentStationNumber == numberOfStations - 1) {
             setCurrentStationNumber(MIN_STATION);
@@ -65,7 +58,7 @@ public class Radio {
         }
     }
 
-    //    уменьшение значения номера радиостанции на единицу
+    // Уменьшение значения номера радиостанции на единицу
     public void prevStation() {
         if (currentStationNumber == MIN_STATION) {
             setCurrentStationNumber(numberOfStations - 1);
@@ -74,7 +67,7 @@ public class Radio {
         }
     }
 
-    //    увеличение громкости на единицу
+    // Увеличение громкости на единицу
     public void increaseVolume() {
         if (currentVolumeLevel == MAX_VOLUME) {
             return;
@@ -83,9 +76,8 @@ public class Radio {
         }
     }
 
-    //    уменьшение громкости на единицу
+    // Уменьшение громкости на единицу
     public void decreaseVolume() {
-
         setCurrentVolumeLevel(Math.max(currentVolumeLevel - 1, MIN_VOLUME));
     }
 }
